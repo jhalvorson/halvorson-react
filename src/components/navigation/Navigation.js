@@ -3,10 +3,14 @@ import { Link } from 'react-router'
 
 export default class Navigation extends Component {
   render() {
-    return <ul>
-        <li><Link to="/">Home</Link></li>
-        <li><Link to="/blog/">Blog</Link></li>
-        <li><Link to="/about/">About</Link></li>
-      </ul>
+    return <nav className="primary-navigation">
+      <div className="container">
+        <ul className="primary-navigation__links">
+          <li className="primary-navigation__links-single"><Link to="/">Home</Link></li>
+          <li className="primary-navigation__links-single"><Link to="/blog/">Blog</Link></li>
+          <li className="primary-navigation__links-single"><Link to="/about/">About</Link></li>
+        </ul>
+      </div>
+    </nav>
   }
 }

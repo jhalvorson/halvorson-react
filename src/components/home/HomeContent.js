@@ -7,17 +7,19 @@ export default class HomeContent extends Component {
     const page = this.props.pages[i]
     let socialLinks = page.acf.social_media_links
     return <section className="home-main">
-      <h1>{page.acf.intro_text}</h1>
-      <ul className="home-main__social">
-      {
-      Object
-      .keys(socialLinks)
-      .map(socialLink => <li key={socialLink} className="home-main__social-entry"><SocialButton
-                      index={socialLink}
-                      social={page.acf.social_media_links[socialLink]}
-                      /></li>)
-        }
-      </ul>
+      <div className="home-main__content">
+        <h1>{page.acf.intro_text}</h1>
+        <ul className="home-main__social">
+        {
+        Object
+        .keys(socialLinks)
+        .map(socialLink => <li key={socialLink} className="home-main__social-entry"><SocialButton
+                        index={socialLink}
+                        social={page.acf.social_media_links[socialLink]}
+                        /></li>)
+          }
+        </ul>
+      </div>
     </section>
   }
 }

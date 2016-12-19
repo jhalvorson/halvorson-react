@@ -1,3 +1,25 @@
+/* Navigation */
+
+.primary-navigation {
+  z-index: 99;
+  position: relative;
+}
+
+.primary-navigation__links {
+  width: 200px;
+  padding: 40px 30px;
+}
+
+.primary-navigation__links-single {
+  text-decoration: none;
+  line-height: 1.6;
+}
+
+.primary-navigation__links-single a {
+  text-decoration: none;
+  color: #000;
+}
+
 /* Blog */
 
 .blog {
@@ -7,7 +29,7 @@
 
 .blog-inner {
   position: relative;
-  margin-top:100px;
+  margin-top:60px;
   max-width:1700px;
 }
 
@@ -27,7 +49,7 @@
   position: absolute;
   bottom: 0;
   right: 0;
-  top:-150px;
+  top:-215px;
   background-color:#F8F8F8;
   z-index: -1;
 }
@@ -35,8 +57,9 @@
 .blog-side__content {
   position: absolute;
   right: 10%;
-  top:160px;
+  top:225px;
   width: 260px;
+  z-index: 1;
 }
 
 .blog-side__content h1 {
@@ -73,11 +96,52 @@
 }
 
 .single-post .container {
-  max-width: 970px;
+  max-width: 770px;
 }
 
 .single-post p {
   padding: 5px 0;
+  line-height: 1.5;
+}
+
+.single-post h1 {
+  margin-bottom: 30px;
+}
+
+.single-post h2,
+.single-post h3 {
+  margin-bottom: 20px;
+}
+
+.single-post__header h1{
+    position: absolute;
+    bottom: 0;
+    background-color: #fff;
+    padding: 37px;
+    font-weight: 600;
+    font-size: 2.5em;
+    margin-left: -37px;
+    margin-bottom: 0;
+}
+
+.single-post .post-content {
+  padding: 60px 0;
+}
+
+.single-post a {
+  color: #000;
+  text-decoration: none;
+  position: relative;
+}
+
+.single-post a:after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0px;
+  height: 2px;
+  width: 100%;
+  background-color: #D56969;
 }
 
 
@@ -109,20 +173,28 @@
 
 .home {
   width: 100%;
+  height: 100%;
 }
 
 .home-main {
   width: 60%;
   display: inline-block;
   position: absolute;
-  bottom: 60px;
-  left: 60px;
+  height: 100%;
+  padding-left: 40px;
+  bottom: 0;
+}
+
+.home-main__content {
+  position: absolute;
+  bottom: 40px;
+  left: 40px;
 }
 
 .home-main h1 {
   font-size: 28px;
   font-weight: 300;
-  padding-right: 50%;
+  padding-right: 40%;
   line-height: 1.5;
   padding-bottom: 10px;
 }

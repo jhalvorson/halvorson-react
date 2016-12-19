@@ -5,7 +5,7 @@ import BlogCard from './BlogCard'
 export default class PostList extends Component {
   render() {
     return (
-      <ul>
+      <div className="post-list">
         {
         Object
         .keys(this.props.posts)
@@ -15,8 +15,7 @@ export default class PostList extends Component {
                         details={this.props.posts[key]}
                         />)
           }
-          {console.log(this.props.posts)}
-  		</ul>
+  		</div>
     )
   }
 }

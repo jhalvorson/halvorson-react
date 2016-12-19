@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { BrowserRouter, Match, Miss } from 'react-router'
 import api from 'wordpress-rest-api-oauth-1'
-const SITE_URL = 'http://halvorson:8888/'
+const SITE_URL = 'http://halvorson-react:8888/'
 
 import App from './home/App'
 import BlogIndex from './blog/BlogIndex'
@@ -20,9 +20,11 @@ export default class Routes extends Component {
 			posts: [],
       work: [],
       pages: [],
+      options: [],
       loadingPosts: true,
       loadingPages: true,
-      loadingWork: true
+      loadingWork: true,
+      loadingOptions: true
 		}
 		window.api = new api({
 			url: SITE_URL
@@ -32,6 +34,7 @@ export default class Routes extends Component {
       this.loadPosts()
       this.loadPages()
       this.loadWork()
+      // this.loadOptions()
   }
 
   loadPosts() {
@@ -74,6 +77,16 @@ export default class Routes extends Component {
        })
 		})
 	}
+
+  // loadOptions() {
+  //   window.api.get('/wp/v2/options')
+	// 	.then(options => {
+	// 		this.setState({
+  //       options,
+  //       loadingOptions: false
+  //      })
+	// 	})
+  // }
 
   render() {
     return (

@@ -11,18 +11,19 @@ export default class App extends Component {
     // const i = this.props.pages.findIndex((pages) => pages.id === pageID);
     // const page = this.props.pages[i];// get us the post
 		return (
-      <div>
-      {this.props.loadingPages ?
-        <p>Loading...</p>
-      :
-      <HomeContent {...this.props} />
-      }
-      {this.props.loadingWork ?
-        null
-      :
-      <WorkList work={this.props.work} />
-      }
-
+      <div className="home">
+        <div className="container">
+          {this.props.loadingPages ?
+            <p>Loading...</p>
+          :
+          <HomeContent {...this.props} />
+          }
+          {this.props.loadingWork ?
+            null
+          :
+          <WorkList work={this.props.work} />
+          }
+        </div>
       </div>
     )
 	}

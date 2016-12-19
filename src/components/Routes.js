@@ -18,8 +18,11 @@ export default class Routes extends Component {
 		super()
 		this.state = {
 			posts: [],
+      work: [],
+      pages: [],
       loadingPosts: true,
-      loadingPages: true
+      loadingPages: true,
+      loadingWork: true
 		}
 		window.api = new api({
 			url: SITE_URL
@@ -28,6 +31,7 @@ export default class Routes extends Component {
   componentWillMount() {
       this.loadPosts()
       this.loadPages()
+      this.loadWork()
   }
 
   loadPosts() {
@@ -56,6 +60,21 @@ export default class Routes extends Component {
       })
     })
   }
+
+  loadWork() {
+		let args = {
+			_embed: true,
+			per_page: 10
+		}
+	  window.api.get('/wp/v2/work', args)
+		.then(work => {
+			this.setState({
+        work,
+        loadingWork: false
+       })
+		})
+	}
+
   render() {
     return (
       <BrowserRouter>
@@ -64,7 +83,9 @@ export default class Routes extends Component {
           <Match  exactly pattern="/"
                   render={(props) => <App {...props}
                                       pages={this.state.pages}
+                                      work={this.state.work}
                                       loadingPages={this.state.loadingPages}
+                                      loadingWork={this.state.loadingWork}
                                       />} />
           <Match  exactly pattern="/blog/"
                   render={(props) => <BlogIndex {...props}

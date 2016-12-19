@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import logo from '../../images/logo.svg'
 import { Link } from 'react-router'
 import HomeContent from './HomeContent'
-// import '../../css/App.css';
+import WorkList from './WorkList'
 
 export default class App extends Component {
 	render() {
@@ -17,6 +17,12 @@ export default class App extends Component {
       :
       <HomeContent {...this.props} />
       }
+      {this.props.loadingWork ?
+        null
+      :
+      <WorkList work={this.props.work} />
+      }
+
       </div>
     )
 	}

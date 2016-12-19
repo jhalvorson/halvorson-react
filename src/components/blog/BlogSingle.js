@@ -9,7 +9,7 @@ export default class BlogSingle extends Component {
     const post = this.props.posts[i];// get us the post
     return (
       <div>
-        {this.props.loading ?
+        {this.props.loadingPosts ?
             <p>Loading...</p>
         :
         <PostContent i={i} post={post} {...this.props}/>

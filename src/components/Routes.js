@@ -7,6 +7,8 @@ import App from './home/App'
 import BlogIndex from './blog/BlogIndex'
 import BlogSingle from './blog/BlogSingle'
 import NotFound from './error/NotFound'
+import About from './about/About'
+import Navigation from './navigation/Navigation'
 //styles
 import css from '../css/index.css'
 import styles from '../css/App.css'
@@ -16,7 +18,8 @@ export default class Routes extends Component {
 		super()
 		this.state = {
 			posts: [],
-      loading: true
+      loadingPosts: true,
+      loadingPages: true
 		}
 		window.api = new api({
 			url: SITE_URL
@@ -24,6 +27,7 @@ export default class Routes extends Component {
 	}
   componentWillMount() {
       this.loadPosts()
+      this.loadPages()
   }
 
   loadPosts() {
@@ -35,24 +39,45 @@ export default class Routes extends Component {
 		.then(posts => {
 			this.setState({
         posts,
-        loading: false
+        loadingPosts: false
        })
 		})
 	}
+
+  loadPages() {
+    let args = {
+      _embed: true
+    }
+    window.api.get('/wp/v2/pages', args)
+    .then(pages => {
+      this.setState({
+        pages,
+        loadingPages: false
+      })
+    })
+  }
   render() {
     return (
       <BrowserRouter>
         <main>
+          <Navigation />
           <Match  exactly pattern="/"
-                  component={App} />
+                  render={(props) => <App {...props}
+                                      pages={this.state.pages}
+                                      loadingPages={this.state.loadingPages}
+                                      />} />
           <Match  exactly pattern="/blog/"
                   render={(props) => <BlogIndex {...props}
                                       posts={this.state.posts}
-                                      loading={this.state.loading}/>} />
+                                      loadingPosts={this.state.loadingPosts}/>} />
           <Match  pattern="/blog/:slug/"
                   render={(props) => <BlogSingle {...props}
                                       posts={this.state.posts}
-                                      loading={this.state.loading}/>} />
+                                      loadingPosts={this.state.loadingPosts}/>} />
+          <Match  pattern="/about/" location={{ pathname: '/about/' }}
+                  render={(props) => <About {...props}
+                                      pages={this.state.pages}
+                                      loadingPages={this.state.loadingPages}/>} />
           <Miss component={NotFound} />
         </main>
       </BrowserRouter>

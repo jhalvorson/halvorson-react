@@ -5,7 +5,7 @@ import { Link } from 'react-router'
 export default class BlogIndex extends Component {
 	render() {
 		return <div>
-      {this.props.loading ?
+      {this.props.loadingPosts ?
           <p>Loading...</p>
       : null}
       <PostList {...this.props} />

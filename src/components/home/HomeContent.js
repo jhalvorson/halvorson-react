@@ -8,7 +8,7 @@ export default class HomeContent extends Component {
     let socialLinks = page.acf.social_media_links
     return <section className="home-main">
       <div className="home-main__content">
-        <h1>{page.acf.intro_text}</h1>
+        <h1 dangerouslySetInnerHTML={{__html:page.acf.intro_text}} />
         <ul className="home-main__social">
         {
         Object

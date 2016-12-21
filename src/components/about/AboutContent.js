@@ -7,8 +7,10 @@ export default class AboutContent extends Component {
     const page = this.props.pages[i];// get us the page
     return (
       <div>
-        <h1>{page.title.rendered}</h1>
-        <p dangerouslySetInnerHTML={{__html: page.acf.about_us}} />
+        <div className="container">
+          <h1>{page.title.rendered}</h1>
+          <p dangerouslySetInnerHTML={{__html: page.content.rendered}} />
+        </div>
       </div>
     )
   }

@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { BrowserRouter, Match, Miss } from 'react-router'
+import classNames from 'classnames'
 import api from 'wordpress-rest-api-oauth-1'
 const SITE_URL = 'http://halvorson-react:8888/'
 
@@ -9,6 +10,7 @@ import BlogSingle from './blog/BlogSingle'
 import NotFound from './error/NotFound'
 import About from './about/About'
 import Navigation from './navigation/Navigation'
+import Footer from './footer/Footer'
 //styles
 import css from '../css/index.css'
 import styles from '../css/App.css'
@@ -89,9 +91,12 @@ export default class Routes extends Component {
   // }
 
   render() {
+    const pageClasses = classNames(
+      'page'
+    )
     return (
       <BrowserRouter>
-        <main>
+        <main className={pageClasses}>
           <Navigation />
           <Match  exactly pattern="/"
                   render={(props) => <App {...props}
@@ -100,7 +105,7 @@ export default class Routes extends Component {
                                       loadingPages={this.state.loadingPages}
                                       loadingWork={this.state.loadingWork}
                                       />} />
-          <Match  exactly pattern="/blog/"
+                                    <Match  exactly pattern="/blog/"
                   render={(props) => <BlogIndex {...props}
                                       posts={this.state.posts}
                                       loadingPosts={this.state.loadingPosts}/>} />
@@ -113,6 +118,7 @@ export default class Routes extends Component {
                                       pages={this.state.pages}
                                       loadingPages={this.state.loadingPages}/>} />
           <Miss component={NotFound} />
+          <Footer pattern="/blog/"/>
         </main>
       </BrowserRouter>
     )

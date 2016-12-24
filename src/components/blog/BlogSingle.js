@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import PostContent from './PostContent'
+import Loader from '../global/Loader'
 
 export default class BlogSingle extends Component {
   render() {
@@ -10,7 +11,7 @@ export default class BlogSingle extends Component {
     return (
       <div>
         {this.props.loadingPosts ?
-            <p>Loading...</p>
+            <Loader />
         :
         <PostContent i={i} post={post} {...this.props}/>
         }

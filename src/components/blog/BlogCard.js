@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router'
+import classNames from 'classnames'
 
 export default class BlogCard extends Component {
   render() {
@@ -7,25 +8,29 @@ export default class BlogCard extends Component {
 
     if (details._links['wp:featuredmedia']) {
 
-        var featuredImage = details._embedded['wp:featuredmedia'][0].media_details.sizes.medium.source_url;
+        var featuredImage = details._embedded['wp:featuredmedia'][0].media_details.sizes.large.source_url;
 
         var articleHeader = {
-            height: '200px',
-            width: '100%',
             backgroundImage: 'url(' + featuredImage + ')',
             backgroundRepeat: 'no-repeat',
-            backgroundPosition: 'centre',
-            backgroundSize: 'cover'
         }
     }
+
+    let classes = '';
+    if(this.props.index == "0") classes += 'blog-card__featured';
+    else if (!this.props.index == "0") classes += 'blog-card';
+
     return (
-      <Link to={`/blog/${details.slug}/`}>
-      <article className="blog-card">
-        <header style={articleHeader} className="blog-card__header"></header>
-        <h2 dangerouslySetInnerHTML={{__html:details.title.rendered}} />
-        <p dangerouslySetInnerHTML={{__html: details.acf.post_overview}} />
+      <article className={classes}>
+          <Link to={`/blog/${details.slug}/`}>
+          <div>
+            <header className="blog-card__header">
+              <img src={featuredImage} alt=""/>
+            </header>
+            <h2 dangerouslySetInnerHTML={{__html:details.title.rendered}} />
+          </div>
+          </Link>
       </article>
-      </Link>
     )
   }
 }

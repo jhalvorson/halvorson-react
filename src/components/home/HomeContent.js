@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import SocialButton from '../global/SocialButton'
+import { Link } from 'react-router'
 
 export default class HomeContent extends Component {
   render() {
@@ -9,16 +10,7 @@ export default class HomeContent extends Component {
     return <section className="home-main">
       <div className="home-main__content">
         <h1 dangerouslySetInnerHTML={{__html:page.acf.intro_text}} />
-        <ul className="home-main__social">
-        {
-        Object
-        .keys(socialLinks)
-        .map(socialLink => <li key={socialLink} className="home-main__social-entry"><SocialButton
-                        index={socialLink}
-                        social={page.acf.social_media_links[socialLink]}
-                        /></li>)
-          }
-        </ul>
+        <p>Did you come here from halvorson.digital? I said <Link to="blog/hello-signal/">Hello to Signal</Link> this year.</p>
       </div>
     </section>
   }

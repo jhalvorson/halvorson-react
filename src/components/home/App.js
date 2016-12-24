@@ -1,22 +1,25 @@
 import React, { Component } from 'react'
 import logo from '../../images/logo.svg'
 import { Link } from 'react-router'
-import HomeContent from './HomeContent'
-import WorkList from './WorkList'
+import BodyClassName from 'react-body-classname'
 import classNames from 'classnames'
+import HomeContent from './HomeContent'
 import Loader from '../global/Loader'
+import SimplePostList from './SimplePostList'
+
 
 export default class App extends Component {
 	render() {
-    const { pageID } = this.props;
-    // index of the post
-    // const i = this.props.pages.findIndex((pages) => pages.id === pageID);
-    // const page = this.props.pages[i];// get us the post
+    const homeBody = classNames(
+      'home-body',
+      'dark'
+    )
     const homeContainer = classNames(
       'container',
       'home-container'
     )
 		return (
+      <BodyClassName className={homeBody}>
       <div className="home">
         <div className="row">
           <div className={homeContainer}>
@@ -27,14 +30,15 @@ export default class App extends Component {
               <HomeContent {...this.props} />
             </section>
             }
-            {this.props.loadingWork ?
+            {this.props.loadingHome ?
               null
             :
-            <WorkList work={this.props.work} />
+            <SimplePostList {...this.props.homePosts}/>
             }
           </div>
         </div>
       </div>
+    </BodyClassName >
     )
 	}
 }

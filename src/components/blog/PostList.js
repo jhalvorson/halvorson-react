@@ -1,11 +1,10 @@
 import React, { Component } from 'react'
-import { Link } from 'react-router'
 import BlogCard from './BlogCard'
 
 export default class PostList extends Component {
   render() {
     return (
-      <div className="post-list">
+      <div className="post-list" id="postList">
         {
         Object
         .keys(this.props.posts)

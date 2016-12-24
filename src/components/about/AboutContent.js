@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import TimelineEvent from './TimelineEvent'
 
 export default class AboutContent extends Component {
   render() {
@@ -8,8 +9,28 @@ export default class AboutContent extends Component {
     return (
       <div>
         <div className="container">
-          <h1>{page.title.rendered}</h1>
-          <p dangerouslySetInnerHTML={{__html: page.content.rendered}} />
+          <section className="about-main">
+            <div className="about-main__content">
+              <h1 className="heading">{page.acf.name}</h1>
+              <p dangerouslySetInnerHTML={{__html: page.acf.about_content}} />
+            </div>
+
+            <ul className="timeline">
+              {
+              Object
+              .keys(page.acf.timeline)
+              .map(event => <li key={event}
+                                className="timeline-event">
+                                  <TimelineEvent
+                                  index={event}
+                                  event={page.acf.timeline[event]}/>
+                            </li>)
+                }
+            </ul>
+          </section>
+          <section className="about-image">
+            <img src={page.acf.about_image.url} alt={page.acf.about_image.alt}/>
+          </section>
         </div>
       </div>
     )

@@ -20,10 +20,12 @@ export default class Routes extends Component {
 		super()
 		this.state = {
 			posts: [],
+      homePosts: [],
       work: [],
       pages: [],
       options: [],
       loadingPosts: true,
+      loadingHome: true,
       loadingPages: true,
       loadingWork: true,
       loadingOptions: true
@@ -33,16 +35,31 @@ export default class Routes extends Component {
 		})
 	}
   componentWillMount() {
-      this.loadPosts()
+      this.loadPosts(1)
       this.loadPages()
       this.loadWork()
-      // this.loadOptions()
+      this.homePosts()
   }
 
-  loadPosts() {
+  homePosts() {
+    let args = {
+      per_page: 3,
+      _embed: false
+    }
+    window.api.get('/wp/v2/posts', args)
+    .then(homePosts => {
+      this.setState({
+        homePosts,
+        loadingHome: false
+      })
+    })
+  }
+
+  loadPosts(page) {
 		let args = {
 			_embed: true,
-			per_page: 10
+			per_page: 4,
+      page
 		}
 	  window.api.get('/wp/v2/posts', args)
 		.then(posts => {
@@ -80,16 +97,6 @@ export default class Routes extends Component {
 		})
 	}
 
-  // loadOptions() {
-  //   window.api.get('/wp/v2/options')
-	// 	.then(options => {
-	// 		this.setState({
-  //       options,
-  //       loadingOptions: false
-  //      })
-	// 	})
-  // }
-
   render() {
     const pageClasses = classNames(
       'page'
@@ -102,8 +109,10 @@ export default class Routes extends Component {
                   render={(props) => <App {...props}
                                       pages={this.state.pages}
                                       work={this.state.work}
+                                      homePosts={this.state.homePosts}
                                       loadingPages={this.state.loadingPages}
                                       loadingWork={this.state.loadingWork}
+                                      loadingHome={this.state.loadingHome}
                                       />} />
                                     <Match  exactly pattern="/blog/"
                   render={(props) => <BlogIndex {...props}

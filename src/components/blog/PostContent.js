@@ -8,8 +8,8 @@ export default class PostContent extends Component {
         var featuredImage = post._embedded['wp:featuredmedia'][0].media_details.sizes.large.source_url;
 
         var articleHeader = {
-            height: '575px',
-            width: '90%',
+            height: '475px',
+            width: '75%',
             backgroundImage: 'url(' + featuredImage + ')',
             backgroundRepeat: 'no-repeat',
             backgroundPosition: 'centre',
@@ -20,7 +20,6 @@ export default class PostContent extends Component {
       <header className="single-post__header">
         <div className="container">
           <h1 dangerouslySetInnerHTML={{__html: post.title.rendered}} />
-          <p dangerouslySetInnerHTML={{__html: post.acf.overview}} />
         </div>
         <div className="featured-image" style={articleHeader}></div>
       </header>

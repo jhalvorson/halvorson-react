@@ -97,6 +97,10 @@ export default class Routes extends Component {
 		})
 	}
 
+  loadMorePosts() {
+    console.log(this.loadPosts(2))
+  }
+
   render() {
     const pageClasses = classNames(
       'page'
@@ -114,9 +118,10 @@ export default class Routes extends Component {
                                       loadingWork={this.state.loadingWork}
                                       loadingHome={this.state.loadingHome}
                                       />} />
-                                    <Match  exactly pattern="/blog/"
+          <Match  exactly pattern="/blog/"
                   render={(props) => <BlogIndex {...props}
                                       posts={this.state.posts}
+                                      postButton={this.loadMorePosts}
                                       loadingPosts={this.state.loadingPosts}/>} />
           <Match  pattern="/blog/:slug/"
                   render={(props) => <BlogSingle {...props}

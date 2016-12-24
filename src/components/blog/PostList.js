@@ -14,6 +14,7 @@ export default class PostList extends Component {
                         details={this.props.posts[key]}
                         />)
           }
+          <input type="button" value="Load posts" onClick={() => this.props.loadPosts(2)}/>
   		</div>
     )
   }

@@ -1,8 +1,8 @@
-# Halvorson React
+# Halvorson.co.uk - React & WP-API
 
-New personal site on its way ✌🏻
+A single paged WordPress React site that uses the WP-API for all content. Currently just pulls in custom fields and blog posts to a homepage, about page and blog. The site will be expanded to showcase projects in the future.
 
-Uses the following plugins:
+### WordPress Plugins
 
 - ACF to WP-API
 

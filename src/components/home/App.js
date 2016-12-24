@@ -1,6 +1,4 @@
 import React, { Component } from 'react'
-import logo from '../../images/logo.svg'
-import { Link } from 'react-router'
 import BodyClassName from 'react-body-classname'
 import classNames from 'classnames'
 import HomeContent from './HomeContent'

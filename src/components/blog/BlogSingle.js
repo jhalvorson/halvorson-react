@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import PostContent from './PostContent'
 import Loader from '../global/Loader'
+import BodyClassName from 'react-body-classname'
 
 export default class BlogSingle extends Component {
   render() {
@@ -9,13 +10,13 @@ export default class BlogSingle extends Component {
     const i = this.props.posts.findIndex((posts) => posts.slug === slug);
     const post = this.props.posts[i];// get us the post
     return (
-      <div>
+      <BodyClassName className="single-post">
         {this.props.loadingPosts ?
             <Loader />
         :
         <PostContent i={i} post={post} {...this.props}/>
         }
-      </div>
+      </BodyClassName >
     )
   }
 }

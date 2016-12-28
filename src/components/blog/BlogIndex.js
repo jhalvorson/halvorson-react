@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
+import { Link } from 'react-router'
 import PostList from './PostList'
 import Loader from '../global/Loader'
 import BodyClassName from 'react-body-classname'
 
 export default class BlogIndex extends Component {
-
 	render() {
 		return <BodyClassName className="blog-body">
       <div className="blog">
@@ -17,6 +17,7 @@ export default class BlogIndex extends Component {
             <PostList {...this.props} />
           </div>
           }
+
         </div>
   		</div>
     </BodyClassName>

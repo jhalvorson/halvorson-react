@@ -3,6 +3,7 @@ import { BrowserRouter, Match, Miss } from 'react-router'
 import classNames from 'classnames'
 import api from 'wordpress-rest-api-oauth-1'
 const SITE_URL = 'http://halvorson-react:8888/'
+import { TransitionMotion, spring } from 'react-motion'
 
 import App from './home/App'
 import BlogIndex from './blog/BlogIndex'
@@ -21,23 +22,18 @@ export default class Routes extends Component {
 		this.state = {
 			posts: [],
       homePosts: [],
-      work: [],
       pages: [],
-      options: [],
       loadingPosts: true,
       loadingHome: true,
       loadingPages: true,
-      loadingWork: true,
-      loadingOptions: true
 		}
 		window.api = new api({
 			url: SITE_URL
 		})
 	}
   componentWillMount() {
-      this.loadPosts(1)
+      this.loadPosts()
       this.loadPages()
-      this.loadWork()
       this.homePosts()
   }
 
@@ -55,11 +51,9 @@ export default class Routes extends Component {
     })
   }
 
-  loadPosts(page) {
+  loadPosts() {
 		let args = {
-			_embed: true,
-			per_page: 4,
-      page
+			_embed: true
 		}
 	  window.api.get('/wp/v2/posts', args)
 		.then(posts => {
@@ -83,24 +77,6 @@ export default class Routes extends Component {
     })
   }
 
-  loadWork() {
-		let args = {
-			_embed: true,
-			per_page: 10
-		}
-	  window.api.get('/wp/v2/work', args)
-		.then(work => {
-			this.setState({
-        work,
-        loadingWork: false
-       })
-		})
-	}
-
-  loadMorePosts() {
-    console.log(this.loadPosts(2))
-  }
-
   render() {
     const pageClasses = classNames(
       'page'
@@ -112,10 +88,8 @@ export default class Routes extends Component {
           <Match  exactly pattern="/"
                   render={(props) => <App {...props}
                                       pages={this.state.pages}
-                                      work={this.state.work}
                                       homePosts={this.state.homePosts}
                                       loadingPages={this.state.loadingPages}
-                                      loadingWork={this.state.loadingWork}
                                       loadingHome={this.state.loadingHome}
                                       />} />
           <Match  exactly pattern="/blog/"
@@ -127,6 +101,7 @@ export default class Routes extends Component {
                   render={(props) => <BlogSingle {...props}
                                       posts={this.state.posts}
                                       loadingPosts={this.state.loadingPosts}/>} />
+          <Match pattern="/blog/posts/:pageNum" component={BlogIndex}/>
           <Match  pattern="/about/" location={{ pathname: '/about/' }}
                   render={(props) => <About {...props}
                                       pages={this.state.pages}

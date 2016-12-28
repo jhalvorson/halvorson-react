@@ -53,7 +53,9 @@ export default class Routes extends Component {
 
   loadPosts() {
 		let args = {
-			_embed: true
+			_embed: true,
+      per_page: 4,
+      page: 1
 		}
 	  window.api.get('/wp/v2/posts', args)
 		.then(posts => {
@@ -86,13 +88,15 @@ export default class Routes extends Component {
         <main className={pageClasses}>
           <Navigation />
           <Match  exactly pattern="/"
-                  render={(props) => <App {...props}
-                                      pages={this.state.pages}
-                                      homePosts={this.state.homePosts}
-                                      loadingPages={this.state.loadingPages}
-                                      loadingHome={this.state.loadingHome}
-                                      />} />
-          <Match  exactly pattern="/blog/"
+                  render={(props) =>
+                      <App {...props}
+                        pages={this.state.pages}
+                        homePosts={this.state.homePosts}
+                        loadingPages={this.state.loadingPages}
+                        loadingHome={this.state.loadingHome}
+                        />
+                  } />
+                <Match  exactly pattern="/blog/"
                   render={(props) => <BlogIndex {...props}
                                       posts={this.state.posts}
                                       postButton={this.loadMorePosts}

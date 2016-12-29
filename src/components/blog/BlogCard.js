@@ -9,19 +9,20 @@ export default class BlogCard extends Component {
     // var featuredImage = data._embedded['wp:featuredmedia'][0].media_details.sizes.medium.source_url;
 
     if (data._links['wp:featuredmedia']) {
+        var altText = data._embedded['wp:featuredmedia'][0].alt_text;
         var featuredImage = data._embedded['wp:featuredmedia'][0].media_details.sizes.large.source_url;
     }
 
     let classes = '';
-    if(this.props.index == "0") classes += 'blog-card__featured';
-    else if (!this.props.index == "0") classes += 'blog-card';
+    if(this.props.index === 0) classes += 'blog-card__featured';
+    else if (this.props.index !== 0) classes += 'blog-card';
 
     return (
       <article className={classes}>
         <Link to={`/blog/${data.slug}/`}>
           <div>
             <header className="blog-card__header">
-              <img src={featuredImage} />
+              <img src={featuredImage} alt={altText}/>
             </header>
             <h2 dangerouslySetInnerHTML={{__html:data.title.rendered}} />
           </div>

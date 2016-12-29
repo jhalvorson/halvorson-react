@@ -3,7 +3,6 @@ import { BrowserRouter, Match, Miss } from 'react-router'
 import classNames from 'classnames'
 import WPAPI from 'wpapi'
 var wp = new WPAPI({ endpoint: 'http://halvorson-react:8888/wp-json' });
-import _ from 'lodash'
 
 
 import App from './home/App'
@@ -118,7 +117,7 @@ export default class Routes extends Component {
                                 postsPagination={this.state.postsPagination}
                                 postsPaginationTotal={this.state.postsPaginationTotal}
                                 />} />
-          <Match  pattern="/blog/:slug/"
+          <Match pattern="/blog/:slug/"
                   render={(props) => <BlogSingle {...props}
                                       posts={this.state.posts}
                                       loadingPosts={this.state.loadingPosts}/>} />
@@ -128,7 +127,7 @@ export default class Routes extends Component {
                                       pages={this.state.pages}
                                       loadingPages={this.state.loadingPages}/>} />
           <Miss component={NotFound} />
-          <Footer pattern="/blog/"/>
+          <Footer />
         </main>
       </BrowserRouter>
     )

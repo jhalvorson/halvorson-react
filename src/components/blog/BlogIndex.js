@@ -18,11 +18,7 @@ export default class BlogIndex extends Component {
           <div>
             <PostList {...this.props} />
 
-            {postsPaginationTotal > postsPagination ?
-            <button key="btn1" onClick={this.props.loadMorePosts}>Load More</button>
-              :
-              <button key="btn2" disabled>No more</button>
-            }
+            <button className="button-load-more" disabled={postsPaginationTotal <= postsPagination} key="btn1" onClick={this.props.loadMorePosts}>Load More</button>
           </div>
           }
 

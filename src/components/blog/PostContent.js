@@ -9,13 +9,14 @@ export default class PostContent extends Component {
 
         var articleHeader = {
             height: '475px',
+            width: '75%',
             backgroundImage: 'url(' + featuredImage + ')',
             backgroundRepeat: 'no-repeat',
             backgroundPosition: 'centre',
             backgroundSize: 'cover'
         }
     }
-    return <article className="single-post single-post--content">
+    return <article className="single-post">
       <header className="single-post__header">
         <div className="container">
           <h1 dangerouslySetInnerHTML={{__html: post.title.rendered}} />

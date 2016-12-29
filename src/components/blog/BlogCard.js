@@ -8,15 +8,9 @@ export default class BlogCard extends Component {
 
     // var featuredImage = details._embedded['wp:featuredmedia'][0].media_details.sizes.medium.source_url;
 
-    // if (details._links['wp:featuredmedia']) {
-    //
-    //     var featuredImage = details._embedded['wp:featuredmedia'][0].media_details.sizes.large.source_url;
-    //
-    //     var articleHeader = {
-    //         backgroundImage: 'url(' + featuredImage + ')',
-    //         backgroundRepeat: 'no-repeat',
-    //     }
-    // }
+    if (details._links['wp:featuredmedia']) {
+        var featuredImage = details._embedded['wp:featuredmedia'][0].media_details.sizes.large.source_url;
+    }
 
     let classes = '';
     if(this.props.index == "0") classes += 'blog-card__featured';
@@ -24,13 +18,14 @@ export default class BlogCard extends Component {
 
     return (
       <article className={classes}>
-          <Link to={`/blog/${details.slug}/`}>
+        <Link to={`/blog/${details.slug}/`}>
           <div>
             <header className="blog-card__header">
+              <img src={featuredImage} />
             </header>
-            <h2 dangerouslySetInnerHTML={{__html:details.slug}} />
+            <h2 dangerouslySetInnerHTML={{__html:details.title.rendered}} />
           </div>
-          </Link>
+        </Link>
       </article>
     )
   }

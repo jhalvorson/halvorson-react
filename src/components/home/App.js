@@ -25,13 +25,13 @@ export default class App extends Component {
               <Loader />
             :
             <section className="home-content">
-              <HomeContent {...this.props} />
+              <HomeContent pages={this.props.pages} />
             </section>
             }
             {this.props.loadingHome ?
               null
             :
-            <SimplePostList {...this.props.homePosts}/>
+            <SimplePostList homePosts={this.props.homePosts}/>
             }
           </div>
         </div>

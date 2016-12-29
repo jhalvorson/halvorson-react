@@ -7,7 +7,10 @@ export default class HomeContent extends Component {
     const page = this.props.pages[i]
     return <section className="home-main">
       <div className="home-main__content">
-        <h1 dangerouslySetInnerHTML={{__html:page.acf.intro_text}} />
+        {console.log(i)}
+        {
+          <h1 dangerouslySetInnerHTML={{__html:page.acf.intro_text}} />
+        }
         <p>Did you come here from halvorson.digital? I said <Link to="blog/hello-signal/">Hello to Signal</Link> this year.</p>
       </div>
     </section>

@@ -3,6 +3,8 @@ import { BrowserRouter, Match, Miss } from 'react-router'
 import classNames from 'classnames'
 import WPAPI from 'wpapi'
 var wp = new WPAPI({ endpoint: 'http://halvorson-react:8888/wp-json' });
+import _ from 'lodash'
+
 
 import App from './home/App'
 import BlogIndex from './blog/BlogIndex'
@@ -16,16 +18,16 @@ import css from '../css/index.css'
 import styles from '../css/App.css'
 
 export default class Routes extends Component {
-  constructor(props) {
-		super(props)
+  constructor() {
+		super()
 
 		this.state = {
 			posts: [],
       homePosts: [],
       pages: [],
       loadingPosts: true,
-      loadingHome: false,
-      loadingPages: false,
+      loadingHome: true,
+      loadingPages: true,
 		}
 
     this.loadPosts = this.loadPosts.bind(this)
@@ -42,6 +44,7 @@ export default class Routes extends Component {
   homePosts() {
     wp.posts().page(1).perPage(3).then((homePosts) => {
       this.setState({
+        loadingHome: false,
         homePosts
       })
     }).catch((err) => {
@@ -53,9 +56,10 @@ export default class Routes extends Component {
 
     wp.posts().page(pageNum).perPage(4).embed().then((posts) => {
       this.setState({
-        posts,
         loadingPosts: false,
+        posts
       })
+      console.log(posts)
     }).catch((err) => {
       console.log(err)
     })
@@ -67,6 +71,7 @@ export default class Routes extends Component {
     wp.pages().then((pages) => {
       console.log(pages)
       this.setState({
+        loadingPages: false,
         pages
       })
     }).catch(function( err ) {

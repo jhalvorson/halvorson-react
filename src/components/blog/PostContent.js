@@ -15,7 +15,7 @@ export default class PostContent extends Component {
             backgroundSize: 'cover'
         }
     }
-    return <article className="single-post single-post--content">
+    return <article className="single-post--content">
       <header className="single-post__header">
         <div className="container">
           <h1 dangerouslySetInnerHTML={{__html: post.title.rendered}} />

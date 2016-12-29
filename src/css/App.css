@@ -146,6 +146,24 @@ p a:after {
   opacity: .6;
 }
 
+.button-load-more {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  border: 2px solid #000;
+  padding: 15px 35px;
+  font-size: 14px;
+  font-weight: 600;
+  background: transparent;
+  font-family: 'Inconsolata';
+}
+
+.button-load-more:disabled {
+  opacity: .4;
+  color: #000;
+  cursor: not-allowed;
+}
+
 @media(max-width: 768px) {
 
   .blog {
@@ -254,6 +272,11 @@ p a:after {
   color: #000;
   text-decoration: none;
   position: relative;
+  font-weight: 600;
+}
+
+.single-post--content a:after {
+  display: none;
 }
 
 .single-post--content pre {
@@ -404,6 +427,10 @@ p a:after {
   font-weight: 200;
 }
 
+.simple-post-list {
+  padding-bottom: 100px;
+}
+
 .simple-post-list .heading {
   padding-bottom: 45px;
   font-size: 20px;
@@ -471,8 +498,73 @@ p a:after {
 
 /* Footer */
 
+.dark .footer {
+  color:#fff;
+}
+
+.dark .footer a {
+  color:#fff;
+}
+
+.home-body .footer {
+  display: none;
+  visibility: hidden;
+}
+
 .footer {
-  padding: 50px 0;
+  margin-top: 60px;
+}
+
+.footer .container{
+  padding: 70px 0;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.footer a {
+  font-weight: 600;
+}
+
+.footer a:after {
+  display: none;
+}
+
+.footer .column {
+  width: 50%;
+}
+
+.footer-social {
+  float: right;
+}
+
+.footer-social li {
+
+}
+
+.footer-social li a {
+  padding: 15px;
+  color: #000;
+  font-size: 18px;
+}
+
+@media(max-width:768px) {
+
+  .footer .container{
+    display: block;
+    text-align: center;
+    width:100%;
+  }
+
+  .footer .column {
+    width:100%;
+    padding: 30px 0;
+  }
+
+  .footer-social {
+    float: none;
+    margin-left: -15px;
+  }
 }
 
 

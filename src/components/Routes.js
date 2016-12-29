@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
 import { BrowserRouter, Match, Miss } from 'react-router'
 import classNames from 'classnames'
-import api from 'wordpress-rest-api-oauth-1'
-const SITE_URL = 'http://halvorson-react:8888/'
-import { TransitionMotion, spring } from 'react-motion'
+import WPAPI from 'wpapi'
+var wp = new WPAPI({ endpoint: 'http://halvorson-react:8888/wp-json' });
+
 
 import App from './home/App'
 import BlogIndex from './blog/BlogIndex'
@@ -19,6 +19,7 @@ import styles from '../css/App.css'
 export default class Routes extends Component {
   constructor() {
 		super()
+
 		this.state = {
 			posts: [],
       homePosts: [],
@@ -26,61 +27,69 @@ export default class Routes extends Component {
       loadingPosts: true,
       loadingHome: true,
       loadingPages: true,
+      postsPagination: 1,
+      postsPaginationTotal: {}
 		}
-		window.api = new api({
-			url: SITE_URL
-		})
+
+    this.loadPosts = this.loadPosts.bind(this)
+    this.loadMorePosts = this.loadMorePosts.bind(this)
+    this.loadPages = this.loadPages.bind(this)
+    this.homePosts = this.homePosts.bind(this)
 	}
+
   componentWillMount() {
-      this.loadPosts(1)
+      this.loadPosts()
       this.loadPages()
       this.homePosts()
   }
 
   homePosts() {
-    let args = {
-      per_page: 3,
-      _embed: false
-    }
-    window.api.get('/wp/v2/posts', args)
-    .then(homePosts => {
+    wp.posts().page(1).perPage(3).then((homePosts) => {
       this.setState({
-        homePosts,
-        loadingHome: false
+        loadingHome: false,
+        homePosts
       })
+    }).catch((err) => {
+      console.log(err)
     })
   }
 
-  loadPosts(pageNumber) {
-		let args = {
-			_embed: true,
-      per_page: 4,
-      page: pageNumber
-		}
-
-	  window.api.get('/wp/v2/posts', args)
-		.then(posts => {
-			this.setState({
+  loadPosts( pageNum = this.state.postsPagination, perPage = 4) {
+    wp.posts().page(pageNum).perPage(perPage).embed().then((posts) => {
+      this.setState({
+        loadingPosts: false,
         posts,
-        loadingPosts: false
-       })
-		})
-
+        postsPaginationTotal: parseInt(posts._paging.totalPages)
+      })
+    }).catch((err) => {
+      console.log(err)
+    })
 	}
+
+  loadMorePosts() {
+    //This seems really messy, will get it running but needs to be reviewed @REVIEW
+    wp.posts().page(this.state.postsPagination + 1).perPage(3).offset(this.state.posts.length).embed().then((posts) => {
+      this.setState({
+        loadingPosts: false,
+        postsPagination: this.state.postsPagination + 1,
+        posts: this.state.posts.concat(posts) //@NOTE: must be a better way..
+      })
+    })
+  }
 
 
   loadPages() {
-    let args = {
-      _embed: true
-    }
-    window.api.get('/wp/v2/pages', args)
-    .then(pages => {
+    wp.pages().then((pages) => {
+      console.log(pages)
       this.setState({
-        pages,
-        loadingPages: false
+        loadingPages: false,
+        pages
       })
+    }).catch(function( err ) {
+      console.log('Nope')
     })
   }
+
 
   render() {
     const pageClasses = classNames(
@@ -103,9 +112,12 @@ export default class Routes extends Component {
           <Match  exactly pattern="/blog/"
             render={(props) => <BlogIndex {...props}
                                 posts={this.state.posts}
-                                postButton={this.loadMorePosts}
-                                loadingPosts={this.state.loadingPosts}/>} />
-          <Match  pattern="/blog/:slug/"
+                                loadMorePosts={this.loadMorePosts}
+                                loadingPosts={this.state.loadingPosts}
+                                postsPagination={this.state.postsPagination}
+                                postsPaginationTotal={this.state.postsPaginationTotal}
+                                />} />
+          <Match pattern="/blog/:slug/"
                   render={(props) => <BlogSingle {...props}
                                       posts={this.state.posts}
                                       loadingPosts={this.state.loadingPosts}/>} />
@@ -115,7 +127,7 @@ export default class Routes extends Component {
                                       pages={this.state.pages}
                                       loadingPages={this.state.loadingPages}/>} />
           <Miss component={NotFound} />
-          <Footer pattern="/blog/"/>
+          <Footer />
         </main>
       </BrowserRouter>
     )

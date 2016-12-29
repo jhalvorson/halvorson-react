@@ -4,12 +4,12 @@ import classNames from 'classnames'
 
 export default class BlogCard extends Component {
   render() {
-    const { details } = this.props
+    const { data } = this.props
 
-    // var featuredImage = details._embedded['wp:featuredmedia'][0].media_details.sizes.medium.source_url;
+    // var featuredImage = data._embedded['wp:featuredmedia'][0].media_details.sizes.medium.source_url;
 
-    if (details._links['wp:featuredmedia']) {
-        var featuredImage = details._embedded['wp:featuredmedia'][0].media_details.sizes.large.source_url;
+    if (data._links['wp:featuredmedia']) {
+        var featuredImage = data._embedded['wp:featuredmedia'][0].media_details.sizes.large.source_url;
     }
 
     let classes = '';
@@ -18,12 +18,12 @@ export default class BlogCard extends Component {
 
     return (
       <article className={classes}>
-        <Link to={`/blog/${details.slug}/`}>
+        <Link to={`/blog/${data.slug}/`}>
           <div>
             <header className="blog-card__header">
               <img src={featuredImage} />
             </header>
-            <h2 dangerouslySetInnerHTML={{__html:details.title.rendered}} />
+            <h2 dangerouslySetInnerHTML={{__html:data.title.rendered}} />
           </div>
         </Link>
       </article>

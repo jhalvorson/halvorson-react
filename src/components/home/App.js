@@ -4,7 +4,8 @@ import classNames from 'classnames'
 import HomeContent from './HomeContent'
 import Loader from '../global/Loader'
 import SimplePostList from './SimplePostList'
-
+import WPAPI from 'wpapi'
+var wp = new WPAPI({ endpoint: 'http://halvorson-react:8888/wp-json' })
 
 export default class App extends Component {
 	render() {

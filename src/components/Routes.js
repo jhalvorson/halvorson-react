@@ -28,9 +28,12 @@ export default class Routes extends Component {
       loadingPosts: true,
       loadingHome: true,
       loadingPages: true,
+      postsPagination: 1,
+      postsPaginationTotal: {}
 		}
 
     this.loadPosts = this.loadPosts.bind(this)
+    this.loadMorePosts = this.loadMorePosts.bind(this)
     this.loadPages = this.loadPages.bind(this)
     this.homePosts = this.homePosts.bind(this)
 	}
@@ -52,19 +55,36 @@ export default class Routes extends Component {
     })
   }
 
-  loadPosts( pageNum = 1) {
+  loadPosts( pageNum = this.state.postsPagination, perPage = 4) {
 
-    wp.posts().page(pageNum).perPage(4).embed().then((posts) => {
+    wp.posts().page(pageNum).perPage(perPage).embed().then((posts) => {
       this.setState({
         loadingPosts: false,
-        posts
+        posts,
+        postsPaginationTotal: parseInt(posts._paging.totalPages)
       })
-      console.log(posts)
+      // console.log(posts)
+      // console.log(`total pages: ${posts._paging.totalPages}`)
     }).catch((err) => {
       console.log(err)
     })
 
 	}
+
+  loadMorePosts(id) {
+    console.log('More posts')
+    this.setState({
+      postsPagination: this.state.postsPagination + 1
+    })
+    wp.posts().page(2).perPage(4).embed().then((posts) => {
+      console.log(posts)
+      // const postsArray = {...this.state.posts}
+      this.setState({
+        loadingPosts: false,
+        posts: this.state.posts.concat(posts) //@NOTE: must be a better way..
+      })
+    })
+  }
 
 
   loadPages() {
@@ -78,6 +98,7 @@ export default class Routes extends Component {
       console.log('Nope')
     })
   }
+
 
   render() {
     const pageClasses = classNames(
@@ -100,8 +121,11 @@ export default class Routes extends Component {
           <Match  exactly pattern="/blog/"
             render={(props) => <BlogIndex {...props}
                                 posts={this.state.posts}
-                                postButton={this.loadMorePosts}
-                                loadingPosts={this.state.loadingPosts}/>} />
+                                loadMorePosts={this.loadMorePosts}
+                                loadingPosts={this.state.loadingPosts}
+                                postsPagination={this.state.postsPagination}
+                                postsPaginationTotal={this.state.postsPaginationTotal}
+                                />} />
           <Match  pattern="/blog/:slug/"
                   render={(props) => <BlogSingle {...props}
                                       posts={this.state.posts}

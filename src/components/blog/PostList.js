@@ -11,22 +11,15 @@ import BlogCard from './BlogCard'
 export default class PostList extends Component {
 
   render() {
-    const { postsPaginationTotal, postsPagination } = this.props
     return (
       <div className="post-list" id="postList">
 
         {
         this.props.posts.map((data, index) => <BlogCard
-                        key={data.id}
+                        key={`${data.id}-${data.slug}`}
                         data={data}
                         index={index}
                         />)
-          }
-
-          {postsPaginationTotal > postsPagination ?
-            <button onClick={this.props.loadMorePosts}>Load More</button>
-            :
-            <button disabled>No more</button>
           }
   		</div>
     )

@@ -56,25 +56,20 @@ export default class Routes extends Component {
   }
 
   loadPosts( pageNum = this.state.postsPagination, perPage = 4) {
-
     wp.posts().page(pageNum).perPage(perPage).embed().then((posts) => {
       this.setState({
         loadingPosts: false,
         posts,
         postsPaginationTotal: parseInt(posts._paging.totalPages)
       })
-      // console.log(posts)
-      // console.log(`total pages: ${posts._paging.totalPages}`)
     }).catch((err) => {
       console.log(err)
     })
-
 	}
 
   loadMorePosts() {
-    wp.posts().page(this.state.postsPagination + 1).perPage(4).embed().then((posts) => {
-      console.log(posts)
-      // const postsArray = {...this.state.posts}
+    //This seems really messy, will get it running but needs to be reviewed @REVIEW
+    wp.posts().page(this.state.postsPagination + 1).perPage(3).offset(this.state.posts.length).embed().then((posts) => {
       this.setState({
         loadingPosts: false,
         postsPagination: this.state.postsPagination + 1,

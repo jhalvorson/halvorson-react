@@ -32,7 +32,7 @@ export default class Routes extends Component {
 		})
 	}
   componentWillMount() {
-      this.loadPosts()
+      this.loadPosts(1)
       this.loadPages()
       this.homePosts()
   }
@@ -51,12 +51,13 @@ export default class Routes extends Component {
     })
   }
 
-  loadPosts() {
+  loadPosts(pageNumber) {
 		let args = {
 			_embed: true,
       per_page: 4,
-      page: 1
+      page: pageNumber
 		}
+
 	  window.api.get('/wp/v2/posts', args)
 		.then(posts => {
 			this.setState({
@@ -64,7 +65,9 @@ export default class Routes extends Component {
         loadingPosts: false
        })
 		})
+
 	}
+
 
   loadPages() {
     let args = {
@@ -83,6 +86,7 @@ export default class Routes extends Component {
     const pageClasses = classNames(
       'page'
     )
+
     return (
       <BrowserRouter>
         <main className={pageClasses}>
@@ -96,11 +100,11 @@ export default class Routes extends Component {
                         loadingHome={this.state.loadingHome}
                         />
                   } />
-                <Match  exactly pattern="/blog/"
-                  render={(props) => <BlogIndex {...props}
-                                      posts={this.state.posts}
-                                      postButton={this.loadMorePosts}
-                                      loadingPosts={this.state.loadingPosts}/>} />
+          <Match  exactly pattern="/blog/"
+            render={(props) => <BlogIndex {...props}
+                                posts={this.state.posts}
+                                postButton={this.loadMorePosts}
+                                loadingPosts={this.state.loadingPosts}/>} />
           <Match  pattern="/blog/:slug/"
                   render={(props) => <BlogSingle {...props}
                                       posts={this.state.posts}

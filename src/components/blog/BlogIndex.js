@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import { Link } from 'react-router'
 import PostList from './PostList'
 import Loader from '../global/Loader'
 import BodyClassName from 'react-body-classname'

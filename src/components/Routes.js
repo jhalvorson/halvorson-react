@@ -1,9 +1,8 @@
 import React, { Component } from 'react'
 import { BrowserRouter, Match, Miss } from 'react-router'
 import classNames from 'classnames'
-import api from 'wordpress-rest-api-oauth-1'
-const SITE_URL = 'http://halvorson-react:8888/'
-import { TransitionMotion, spring } from 'react-motion'
+import WPAPI from 'wpapi'
+var wp = new WPAPI({ endpoint: 'http://halvorson-react:8888/wp-json' });
 
 import App from './home/App'
 import BlogIndex from './blog/BlogIndex'
@@ -17,68 +16,61 @@ import css from '../css/index.css'
 import styles from '../css/App.css'
 
 export default class Routes extends Component {
-  constructor() {
-		super()
+  constructor(props) {
+		super(props)
+
 		this.state = {
 			posts: [],
       homePosts: [],
       pages: [],
       loadingPosts: true,
-      loadingHome: true,
-      loadingPages: true,
+      loadingHome: false,
+      loadingPages: false,
 		}
-		window.api = new api({
-			url: SITE_URL
-		})
+
+    this.loadPosts = this.loadPosts.bind(this)
+    this.loadPages = this.loadPages.bind(this)
+    this.homePosts = this.homePosts.bind(this)
 	}
+
   componentWillMount() {
-      this.loadPosts(1)
+      this.loadPosts()
       this.loadPages()
       this.homePosts()
   }
 
   homePosts() {
-    let args = {
-      per_page: 3,
-      _embed: false
-    }
-    window.api.get('/wp/v2/posts', args)
-    .then(homePosts => {
+    wp.posts().page(1).perPage(3).then((homePosts) => {
       this.setState({
-        homePosts,
-        loadingHome: false
+        homePosts
       })
+    }).catch((err) => {
+      console.log(err)
     })
   }
 
-  loadPosts(pageNumber) {
-		let args = {
-			_embed: true,
-      per_page: 4,
-      page: pageNumber
-		}
+  loadPosts( pageNum = 1) {
 
-	  window.api.get('/wp/v2/posts', args)
-		.then(posts => {
-			this.setState({
+    wp.posts().page(pageNum).perPage(4).embed().then((posts) => {
+      this.setState({
         posts,
-        loadingPosts: false
-       })
-		})
+        loadingPosts: false,
+      })
+    }).catch((err) => {
+      console.log(err)
+    })
 
 	}
 
 
   loadPages() {
-    let args = {
-      _embed: true
-    }
-    window.api.get('/wp/v2/pages', args)
-    .then(pages => {
+    wp.pages().then((pages) => {
+      console.log(pages)
       this.setState({
-        pages,
-        loadingPages: false
+        pages
       })
+    }).catch(function( err ) {
+      console.log('Nope')
     })
   }
 

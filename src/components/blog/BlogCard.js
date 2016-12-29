@@ -6,15 +6,17 @@ export default class BlogCard extends Component {
   render() {
     const { details } = this.props
 
-    if (details._links['wp:featuredmedia']) {
+    // var featuredImage = details._embedded['wp:featuredmedia'][0].media_details.sizes.medium.source_url;
 
-        var featuredImage = details._embedded['wp:featuredmedia'][0].media_details.sizes.large.source_url;
-
-        var articleHeader = {
-            backgroundImage: 'url(' + featuredImage + ')',
-            backgroundRepeat: 'no-repeat',
-        }
-    }
+    // if (details._links['wp:featuredmedia']) {
+    //
+    //     var featuredImage = details._embedded['wp:featuredmedia'][0].media_details.sizes.large.source_url;
+    //
+    //     var articleHeader = {
+    //         backgroundImage: 'url(' + featuredImage + ')',
+    //         backgroundRepeat: 'no-repeat',
+    //     }
+    // }
 
     let classes = '';
     if(this.props.index == "0") classes += 'blog-card__featured';
@@ -25,9 +27,8 @@ export default class BlogCard extends Component {
           <Link to={`/blog/${details.slug}/`}>
           <div>
             <header className="blog-card__header">
-              <img src={featuredImage} alt=""/>
             </header>
-            <h2 dangerouslySetInnerHTML={{__html:details.title.rendered}} />
+            <h2 dangerouslySetInnerHTML={{__html:details.slug}} />
           </div>
           </Link>
       </article>

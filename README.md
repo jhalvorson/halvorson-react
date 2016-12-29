@@ -25,7 +25,7 @@ The site uses React, WordPress Rest API OAuth 1, React Router, React Motion, Rea
 
 - [ ] React Router transitions
 - [ ] Finish single post styles
-- [ ] Add pagination to blog **Any pointers appreciated 👍🏻**
+- [X] Add pagination to blog
 - [ ] Check proptypes
 - [ ] Add footer
 - [ ] Add tests
@@ -40,5 +40,3 @@ The site uses React, WordPress Rest API OAuth 1, React Router, React Motion, Rea
 
 
 A full write up will be on the (new) blog once the project is live.
-
-

@@ -4,32 +4,29 @@ import classNames from 'classnames'
 
 export default class BlogCard extends Component {
   render() {
-    const { details } = this.props
+    const { data } = this.props
 
-    if (details._links['wp:featuredmedia']) {
+    // var featuredImage = data._embedded['wp:featuredmedia'][0].media_details.sizes.medium.source_url;
 
-        var featuredImage = details._embedded['wp:featuredmedia'][0].media_details.sizes.large.source_url;
-
-        var articleHeader = {
-            backgroundImage: 'url(' + featuredImage + ')',
-            backgroundRepeat: 'no-repeat',
-        }
+    if (data._links['wp:featuredmedia']) {
+        var altText = data._embedded['wp:featuredmedia'][0].alt_text;
+        var featuredImage = data._embedded['wp:featuredmedia'][0].media_details.sizes.large.source_url;
     }
 
     let classes = '';
-    if(this.props.index == "0") classes += 'blog-card__featured';
-    else if (!this.props.index == "0") classes += 'blog-card';
+    if(this.props.index === 0) classes += 'blog-card__featured';
+    else if (this.props.index !== 0) classes += 'blog-card';
 
     return (
       <article className={classes}>
-          <Link to={`/blog/${details.slug}/`}>
+        <Link to={`/blog/${data.slug}/`}>
           <div>
             <header className="blog-card__header">
-              <img src={featuredImage} alt=""/>
+              <img src={featuredImage} alt={altText}/>
             </header>
-            <h2 dangerouslySetInnerHTML={{__html:details.title.rendered}} />
+            <h2 dangerouslySetInnerHTML={{__html:data.title.rendered}} />
           </div>
-          </Link>
+        </Link>
       </article>
     )
   }

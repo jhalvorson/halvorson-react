@@ -71,16 +71,13 @@ export default class Routes extends Component {
 
 	}
 
-  loadMorePosts(id) {
-    console.log('More posts')
-    this.setState({
-      postsPagination: this.state.postsPagination + 1
-    })
-    wp.posts().page(2).perPage(4).embed().then((posts) => {
+  loadMorePosts() {
+    wp.posts().page(this.state.postsPagination + 1).perPage(4).embed().then((posts) => {
       console.log(posts)
       // const postsArray = {...this.state.posts}
       this.setState({
         loadingPosts: false,
+        postsPagination: this.state.postsPagination + 1,
         posts: this.state.posts.concat(posts) //@NOTE: must be a better way..
       })
     })

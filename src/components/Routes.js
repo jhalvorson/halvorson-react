@@ -27,6 +27,7 @@ export default class Routes extends Component {
       loadingPosts: true,
       loadingHome: true,
       loadingPages: true,
+      loadingMorePosts: false,
       postsPagination: 1,
       postsPaginationTotal: {}
 		}
@@ -67,10 +68,14 @@ export default class Routes extends Component {
 	}
 
   loadMorePosts() {
+    this.setState({
+      loadingMorePosts: true
+    })
     //This seems really messy, will get it running but needs to be reviewed @REVIEW
     wp.posts().page(this.state.postsPagination + 1).perPage(3).offset(this.state.posts.length).embed().then((posts) => {
       this.setState({
         loadingPosts: false,
+        loadingMorePosts: false,
         postsPagination: this.state.postsPagination + 1,
         posts: this.state.posts.concat(posts) //@NOTE: must be a better way..
       })
@@ -113,6 +118,7 @@ export default class Routes extends Component {
             render={(props) => <BlogIndex {...props}
                                 posts={this.state.posts}
                                 loadMorePosts={this.loadMorePosts}
+                                loadingMorePosts={this.state.loadingMorePosts}
                                 loadingPosts={this.state.loadingPosts}
                                 postsPagination={this.state.postsPagination}
                                 postsPaginationTotal={this.state.postsPaginationTotal}

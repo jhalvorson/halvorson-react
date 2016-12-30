@@ -1,5 +1,9 @@
 #Halvorson.co.uk Changelog
 
+##[0.2.0] - 2016-12-29
+- Few fixes and tidied up blog
+- Added prism.js for codeblocks
+- Added responsive video embeds
 
 ##[0.1.0] - 2016-12-29
 

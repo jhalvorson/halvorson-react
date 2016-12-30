@@ -55,7 +55,7 @@ export default class Routes extends Component {
     })
   }
 
-  loadPosts( pageNum = this.state.postsPagination, perPage = 4) {
+  loadPosts( pageNum = this.state.postsPagination, perPage = 12) {
     wp.posts().page(pageNum).perPage(perPage).embed().then((posts) => {
       this.setState({
         loadingPosts: false,
@@ -85,7 +85,6 @@ export default class Routes extends Component {
 
   loadPages() {
     wp.pages().then((pages) => {
-      console.log(pages)
       this.setState({
         loadingPages: false,
         pages

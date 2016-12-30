@@ -4,6 +4,9 @@ import Loader from '../global/Loader'
 import BodyClassName from 'react-body-classname'
 
 export default class BlogSingle extends Component {
+  componentWillMount() {
+    window.scrollTo(0, 0)
+  }
   render() {
     const { slug } = this.props.params;
     // index of the post

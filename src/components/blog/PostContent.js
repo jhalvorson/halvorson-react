@@ -9,8 +9,46 @@ import 'prismjs/plugins/show-language/prism-show-language.min.js'
 
 export default class PostContent extends Component {
   componentDidMount() {
-    Prism.highlightAll();
+    if(document.querySelectorAll('pre[class*="language-"]')) {
+      Prism.highlightAll()
+    }
+    this.equalVideo()
   }
+
+  equalVideo() {
+      const iframes = document.getElementsByTagName('iframe');
+
+      for ( let i = 0; i < iframes.length; i++ ) {
+
+      let iframe = iframes[i],
+
+      players = /www.youtube.com|player.vimeo.com/;
+
+      if ( iframe.src.search( players ) > 0 ) {
+
+        let videoRatio        = ( iframe.height / iframe.width ) * 100;
+
+        iframe.style.position = 'absolute';
+        iframe.style.top      = '0';
+        iframe.style.left     = '0';
+        iframe.width          = '100%';
+        iframe.height         = '100%';
+
+        let wrap              = document.createElement( 'div' );
+        wrap.className        = 'fluid-vids';
+        wrap.style.width      = '100%';
+        wrap.style.position   = 'relative';
+        wrap.style.paddingTop = videoRatio + '%';
+
+        let iframeParent      = iframe.parentNode;
+        iframeParent.insertBefore( wrap, iframe );
+        wrap.appendChild( iframe );
+
+      }
+    }
+  }
+
+
   render() {
     const { post } = this.props;
     if (post._links['wp:featuredmedia']) {

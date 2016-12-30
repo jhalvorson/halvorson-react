@@ -11,11 +11,11 @@ export default class BlogSingle extends Component {
     const post = this.props.posts[i];// get us the post
     return (
       <BodyClassName className="single-post">
-        {this.props.loadingPosts ?
-            <Loader />
-        :
-        <PostContent i={i} post={post} {...this.props}/>
-        }
+          {this.props.loadingPosts ?
+              <Loader />
+          :
+          <PostContent i={i} post={post} {...this.props}/>
+          }
       </BodyClassName >
     )
   }

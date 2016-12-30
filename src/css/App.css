@@ -38,7 +38,8 @@ p a:after {
 .primary-navigation__links-single a {
   text-decoration: none;
   color: #000;
-  font-family: 'Inconsolata';
+  font-family: 'Inconsolata', monospace;
+
 }
 
 .dark .primary-navigation__links-single a {
@@ -155,7 +156,8 @@ p a:after {
   font-size: 14px;
   font-weight: 600;
   background: transparent;
-  font-family: 'Inconsolata';
+  font-family: 'Inconsolata', monospace;
+
 }
 
 .button-load-more:disabled {
@@ -234,24 +236,34 @@ p a:after {
 }
 
 .single-post--content h2,
-.single-post--content h3 {
-  padding: 20px 0;
+.single-post--content h3,
+.single-post--content h4,
+.single-post--content h5,
+.single-post--content h6 {
+  padding: 30px 0 20px 0;
+  font-weight: 600;
 }
 
-.single-post--content h2 {
+/*.single-post--content h2 {
   font-weight: 600;
-  font-size: 2.2em;
 }
 
 .single-post--content h3 {
   font-weight: 600;
-  font-size: 1.7em;
-}
+}*/
 
 .single-post--content img {
   max-width:100%;
   height: auto;
   margin: 30px 0;
+}
+
+.single-post--content iframe {
+  margin: 30px 0;
+}
+
+.single-post--content ul li {
+  font-family: 'Inconsolata', monospace;
 }
 
 .single-post__header {
@@ -295,10 +307,30 @@ p a:after {
 }
 
 .single-post--content pre {
-  padding: 30px;
+  /*padding: 30px;
   margin: 15px;
   background-color: #fff;
-  border-left: 3px solid #000;
+  border-left: 3px solid #000;*/
+}
+
+pre[class*="language-"] {
+    background: #fff;
+    position: relative;
+    margin: 30px 0;
+}
+
+pre[class*="language-"] {
+    padding-top: 70px;
+}
+
+pre .toolbar {
+  position: absolute;
+  top: 0;
+  padding: 10px 20px;
+  background-color: #000;
+  color: #fff;
+  left: 0;
+  width: 100%;
 }
 
 .single-post--content li {
@@ -334,7 +366,7 @@ p a:after {
 /* Home */
 
 .home-body {
-  background: black;
+  background: #000000;
 }
 
 .home {
@@ -392,7 +424,7 @@ p a:after {
 }
 
 .home-main p {
-  font-family: 'Inconsolata';
+  font-family: 'Inconsolata', monospace;
   color: #95989A;
 }
 
@@ -479,7 +511,8 @@ p a:after {
 }
 
 .simple-blog-card p {
-  font-family: 'Inconsolata';
+  font-family: 'Inconsolata', monospace;
+
   font-size: 16px;
   color: #95989A;
   line-height: 1.3;

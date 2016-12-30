@@ -24,17 +24,18 @@ The site uses React, WordPress Rest API OAuth 1, React Router, React Motion, Rea
 **The todo list:**
 
 - [ ] React Router transitions
-- [ ] Finish single post styles
+- [x] Finish single post styles
 - [X] Add pagination to blog
 - [ ] Check proptypes
-- [ ] Add footer
+- [X] Add footer
 - [ ] Add tests
 
 **Way in the future:**
 
-- [ ] Add projects
-- [ ] Add recent work
 - [ ] Blog categories (WordPress, FabFit etc.)
+- [ ] Add projects
+- [ ] Add search to the blog
+- [ ] Add recent work
 - [ ] Add comments to blog posts
 
 

@@ -2,6 +2,8 @@
 
 > Work in progress 💩
 
+[Blog post on why/how/wtf](https://halvorson.co.uk/blog/rebuilding-halvorson-co-uk-using-react-the-wp-api/)
+
 A single paged WordPress React site that uses the WP-API for all content. Currently just pulls in custom fields and blog posts to a homepage, about page and blog. The site will be expanded to showcase projects in the future.
 
 This site is incredibly simple, as it stands it has the following pages:
@@ -11,7 +13,7 @@ This site is incredibly simple, as it stands it has the following pages:
 - Blog
 	- Single Blog
 
-The site uses React, WordPress Rest API OAuth 1, React Router, React Motion, React Body Class, Classnames and was bootstrapped with `create-react-app`.
+The site uses React, WP-API, React Router, React Motion, React Body Class, Classnames and was bootstrapped with `create-react-app`.
 
 ##Plugins in use
 
@@ -24,7 +26,8 @@ The site uses React, WordPress Rest API OAuth 1, React Router, React Motion, Rea
 **The todo list:**
 
 - [ ] React Router transitions
-- [x] Finish single post styles
+- [ ] Implement environment variables
+- [X] Finish single post styles
 - [X] Add pagination to blog
 - [ ] Check proptypes
 - [X] Add footer
@@ -37,7 +40,3 @@ The site uses React, WordPress Rest API OAuth 1, React Router, React Motion, Rea
 - [ ] Add search to the blog
 - [ ] Add recent work
 - [ ] Add comments to blog posts
-
-
-
-A full write up will be on the (new) blog once the project is live.

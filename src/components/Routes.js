@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
 import { BrowserRouter, Match, Miss } from 'react-router'
 import classNames from 'classnames'
-import WPAPI from 'wpapi'
-var wp = new WPAPI({ endpoint: 'http://halvorson-react:8888/wp-json' });
 
+import WPAPI from 'wpapi'
+var wp = new WPAPI({ endpoint: 'https://dashboard.halvorson.co.uk/wp-json' });
 
 import App from './home/App'
 import BlogIndex from './blog/BlogIndex'
@@ -17,6 +17,7 @@ import css from '../css/index.css'
 import styles from '../css/App.css'
 
 export default class Routes extends Component {
+
   constructor() {
 		super()
 
